@@ -1,0 +1,50 @@
+import pandas as pd
+
+def map_phase(file_path):
+    df = pd.read_csv(file_path)
+
+    # Gender based death
+    deaths = df[df['Survived'] == 0]
+    gender_death = deaths['Sex'].value_counts()
+
+    #avg
+    male_died = deaths[deaths['Sex'] == 'male']
+    male_ages = male_died['Age'].dropna()
+
+    female_died = deaths[deaths['Sex'] == 'female']
+    female_ages = female_died['Age'].dropna()
+
+    #male and female died in each class
+    male_class_count = male_died['Pclass'].value_counts()
+    female_class_count = female_died['Pclass'].value_counts()
+
+    return gender_death , male_ages , female_ages , male_class_count , female_class_count
+
+def reduce_phase(gender_death , male_ages , female_ages , male_class_count , female_class_count):
+    avg_age_male = round(male_ages.mean(),2) if not male_ages.empty else 0
+    avg_age_female = round(female_ages.mean(),2) if not female_ages.empty else 0
+    return gender_death , avg_age_male , avg_age_female , male_class_count , female_class_count
+
+file_path = 'titanic.csv'
+
+gender_death , male_ages , female_ages , male_class_count , female_class_count = map_phase(file_path)
+
+gender_death , avg_age_male , avg_age_female , male_class_count , female_class_count = reduce_phase(gender_death , male_ages , 
+                                                                                                    female_ages , male_class_count , 
+                                                                                                    female_class_count)
+
+print("GENDER BASED CASUALTIES ON TITANIC")
+for gender , count in gender_death.items():
+    print(f"{gender.capitalize()} : {count}")
+
+print('\n\nAVERAGE AGE OF MALES DIED : ',avg_age_male)
+
+print("AVERGAE AGE OF FEMALES DIED :",avg_age_female)
+
+print("\n\nNUMBER OF MALES DIED IN EACH CLASS : ")
+for cls , cnt in sorted(male_class_count.items()):
+    print(f" Class {cls} : {cnt}")
+
+print("NUMBER OF FEMALES DIED IN EACH CLASS : ")
+for cls , cnt in sorted(female_class_count.items()):
+    print(f" Class {cls} : {cnt}")

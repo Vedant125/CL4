@@ -1,0 +1,72 @@
+//INSERT RECORDS
+db.students.insertMany([
+  {name : 'Vedant' , age : 21 , email : "abc@gmail.com"} , 
+  {name : 'More' , age : 22 , email : "pqr@gmail.com"} , 
+  {name : 'Piyush' , age : 23 , email : "piy@gmail.com"}
+  ])
+
+//DISPLAY
+db.students.find()
+
+//GET RECORDS WITH AGE > 21
+db.students.find({ age: { $gt: 21 } })
+
+//UPDATE SINGLE RECORD
+db.students.updateOne(
+  { name: "Vedant" },
+  { $set: { email: "vedant@gmail.com" } }
+)
+
+db.students.find()
+
+// ADD NEW FIELD
+db.students.updateMany(
+  {},
+  { $set: { course: "B.Tech" } }
+)
+
+//UPDATE ALL RECORDS
+db.students.updateMany(
+  {},
+  { $set: { course: "BE" } }
+)
+
+
+db.students.find().pretty()
+
+db.students.insertOne({
+  name: "Sneha",
+  age: 20,
+  email: "sneha@example.com",
+  course: "BE"
+})
+
+db.students.find().pretty()
+
+
+//DELETE RECORD 
+db.students.deleteOne({ name: "More" })
+
+
+//DISPLAY CONDITION BASED RECORD
+db.students.find({ age: 21 }).pretty()
+
+
+//Delete all students aged below 22
+
+db.students.deleteMany({ age: { $lt: 22 } })
+
+db.students.find().pretty()
+
+//REPLACE RECORD
+db.students.replaceOne(
+  { age: 21 },
+  {
+    name: "Riya",
+    age: 21,
+    email: "riya@example.com",
+    course: "BE"
+  }
+)
+
+

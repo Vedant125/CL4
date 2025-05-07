@@ -1,0 +1,48 @@
+def map_reduce_all_words(file_path):
+    with open(file_path , 'r') as file:
+        mapped_data = [(word.lower(),1) for line in file for word in line.strip().split()]
+
+    reduced_data = {}
+    for word , count in mapped_data:
+        if word in reduced_data:
+            reduced_data[word] += count
+        else:
+            reduced_data[word] = count
+    return reduced_data
+
+def map_reduce_target_word(file_path, target_word): 
+    word_count = 0 
+    with open(file_path, 'r') as file: 
+        # Map Phase: Emit each word with count 1
+        mapped_data = [(word.lower(), 1) for line in file for word in line.strip().split()] 
+
+    # Reduce Phase: Aggregate counts for the target word 
+    for word, count in mapped_data: 
+        if word == target_word.lower(): 
+            word_count += count 
+            
+    return word_count 
+
+flag=1
+while(flag==1):
+    print("\n****MENU****")
+    print("1. Count frequency of each word.\n2. Count frequency of specific word\n3. Exit")
+    choice = int(input("Enter Choice (1/2/3) : "))
+    file_path = 'G.txt'
+    if choice == 1:
+        word_freq = map_reduce_all_words(file_path)
+        print("Frequncy of each term in text : ")
+        for word in sorted(word_freq):
+            print(f"{word} : {word_freq[word]}")
+    elif choice == 2:
+        target = input("Enter Target word : ")
+        frequency = map_reduce_target_word(file_path, target)
+        if frequency == 0:
+            print(f"The word '{target}' was not found in the file.")
+        else:
+            print(f"The word '{target}' appears {frequency} times.")
+        # print(f"The word '{target}' appears {frequency} times.")
+    elif choice == 3:
+        print("Thank You !!")
+        flag = 0 
+    

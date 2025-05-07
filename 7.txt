@@ -1,0 +1,38 @@
+# Step 1: Read the file
+with open('student_scores_multi_names.txt', 'r') as file:
+    lines = file.readlines()
+
+# Step 2: Map Phase
+mapped_data = []
+for line in lines:
+    name, score = line.strip().split()
+    mapped_data.append((name, int(score)))
+
+# Step 3: Shuffle & Sort (Group by name manually)
+grouped_data = {}
+for name, score in mapped_data:
+    if name in grouped_data:
+        grouped_data[name].append(score)
+    else:
+        grouped_data[name] = [score]
+
+# Step 4: Reduce Phase + Grade Assignment
+def assign_grade(avg):
+    if avg >= 90:
+        return 'A'
+    elif avg >= 80:
+        return 'B'
+    elif avg >= 70:
+        return 'C'
+    elif avg >= 60:
+        return 'D'
+    else:
+        return 'F'
+
+# Step 5: Compute and display
+print("Student\tAverage\tGrade")
+for name in sorted(grouped_data.keys()):
+    scores = grouped_data[name]
+    avg = sum(scores) / len(scores)
+    grade = assign_grade(avg)
+    print(f"{name}\t{avg:.2f}\t{grade}")
