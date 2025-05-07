@@ -1,0 +1,94 @@
+Step 1: Open Power BI, Click on Get Data → OData Feed
+Paste Url : http://services.odata.org/V3/Northwind/Northwind.svc/
+
+Step 2: Click on Check Box of Products table and then click on Edit
+
+Remove other columns to only display columns of interest 
+In Query Editor, select the ProductID, ProductName, QuantityPerUnit, and UnitsInStock 
+columns (use Ctrl+Click to select more than one column, or Shift+Click to select columns that 
+are beside each other). 
+
+Select Remove Columns > Remove Other Columns from the ribbon, or right click on a column 
+header and click Remove Other Columns
+
+After selecting Remove Other Columns only selected four columns are displayed other 
+columns are discarded. 
+
+Change the data type of the UnitsInStock column 
+a) Select the UnitsInStock column.
+b) Select the Data Type drop-down button in the Home ribbon. 
+c) If not already a Whole Number, select Whole Number for data type from the drop down (the Data 
+Type: button also displays the data type for the current selection). 
+
+After clicking on Whole number, you can see the changed Datatype in column header of UnitsInStock
+
+After above step, close query editor and click on Yes to save changes. 
+Now you can view fields of Products table on right side, check all the fields of table to get 
+representation in charts form.
+
+3. Expand the Orders table 
+Once You have loaded a data source, you can click on Recent Sources to select desired table (Orders).
+
+After selecting the URL, Navigator window will appear from which you can select Orders table. 
+Click on Edit.
+
+Query Editor Window will appear 
+1. In the Query View, scroll to the Order_Details column. 
+2. In the Order_Details column, select the expand icon. 
+3. In the Expand drop-down: 
+a. Select (Select All Columns) to clear all columns. 
+b. Select ProductID, UnitPrice, and Quantity. 
+c. Click OK.
+
+After clicking on OK following screen appears with combined columns
+
+4. Calculate the line total for each Order_Details row 
+Power BI Desktop lets you to create calculations based on the columns you are importing, so you 
+can enrich the data that you connect to. In this step, you create a Custom Column to calculate the 
+line total for each Order_Details row. 
+Calculate the line total for each Order_Details row: 
+a) In the Add Column ribbon tab, click Add Custom Column.
+b) In the Custom Column dialog box, in the Custom Column Formula textbox, enter 
+[Order_Details.UnitPrice] * [Order_Details.Quantity] by selecting from available columns 
+and click on insert for each column. 
+c) In the New column name textbox, enter LineTotal. 
+d) Click OK. 
+
+5. Rename and reorder columns in the query 
+In this step you finish making the model easy to work with when creating reports, by renaming the 
+final columns and changing their order. 
+a) In Query Editor, drag the LineTotal column to the left, after ShipCountry. 
+
+b) Remove the Order_Details. prefix from the Order_Details.ProductID, Order_Details.UnitPrice and 
+Order_Details.Quantity columns, by double-clicking on each column header, and then deleting that 
+text from the column name.
+
+Combine the Products and Total Sales queries 
+Power BI Desktop does not require you to combine queries to report on them. Instead, you can create 
+relationships between datasets. These relationships can be created on any column that is common to 
+your datasets. 
+
+In this task, you confirm that a relationship is established in Power BI Desktop between the Products 
+and Total Sales queries 
+Step 1: Confirm the relationship between Products and Total Sales 1. First, we need to load the model 
+that we created in Query Editor into Power BI Desktop. From the Home ribbon of Query Editor, select 
+Close & Apply.
+
+Step 2: Power BI Desktop loads the data from the two queries.
+
+Step 3: Once the data is loaded, select the Manage Relationships button Home ribbon 
+
+Step 4. Select the New… button
+
+Step 5: When we attempt to create the relationship, we see that one already exists! As shown in the 
+Create Relationship dialog (by the shaded columns), the ProductsID fields in each query already have 
+an established relationship.
+
+Step 6: Select Cancel, and then select Relationship view in Power BI Desktop. 
+
+Step 7: We see the following, which visualizes the relationship between the queries.
+
+Step 8: When you double-click the arrow on the line that connects the to queries, an Edit Relationship 
+dialog appears. 
+
+Step 9: No need to make any changes, so we'll just select Cancel to close the Edit Relationship dialog.
